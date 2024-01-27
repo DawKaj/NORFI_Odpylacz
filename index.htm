@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- **************************************************************************************** -->
+  <head>
+    <title>NORFI Odpylacz</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="css/normalize.css"
+      media="all"
+    />
+    <link type="text/css" rel="stylesheet" href="css/S7Web.css" media="all" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="css/S7WebPrint.css"
+      media="print"
+    />
+    <script src="js/raphael-2.1.4.min.js"></script>
+    <script src="js/justgage.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+  </head>
+  <!-- **************************************************************************************** -->
+  <!-- **************************************************************************************** -->
+  <body class="">
+    <main>
+      <nav class="Header_Area">
+        <div class="Logo_Area">
+          <img
+            src="pics/norfi.jpg"
+            class=""
+            alt="norfi - wyciągi spalin samochodowych"
+            loading="lazy"
+          />
+        </div>
+        <div class="Header_Title_Description">S7-1200 station_1 / PLC_1</div>
+      </nav>
+
+      <div class="Header_Language_Time_Date"></div>
+
+      <div class="HeaderMenu_Area">
+        <div class="Login_Area"></div>
+        <div id="gauge" class="Client_Area"></div>
+      </div>
+
+      <div class="Main_Area">
+        <div id="tabs">
+          <ul>
+            <li class="">
+              <a href="#tabs-1">Zakresy podciśnienia pracy układu</a>
+            </li>
+            <li class=""><a href="#tabs-2">Cykl czyszczenia</a></li>
+            <li class="">
+              <a href="#tabs-3">Czasy chłodzenia i hamowania układu</a>
+            </li>
+          </ul>
+          <div id="tabs-1" class="">
+            <h3>Zakresy podciśnienia pracy układu</h3>
+            <div class="cards__row">
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">Zakres pracy normalnej</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1>
+                      <label class="" id="Zakres1_Min" name="Zakres1_Min">
+                      </label>
+                      <label> - </label>
+                      <label class="" id="Zakres1_Max" name="Zakres1_Max">
+                      </label>
+                      <small class="text-body-secondary fw-light"> mBar </small>
+                    </h1>
+                    <div class="buttonGroup">
+                      <form method="post">
+                        <input id="Zakres1_Max_setVal" type="text" />
+                        <button class="">Zapisz</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col">
+                <div
+                  class="card card--centered"
+                  style="background-color: rgba(var(--color-warning-lighter))"
+                >
+                  <div class="card__header">
+                    <h4 class="card__title">Zakres ostrzegawczy</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      <label class="" id="Zakres2_Min" name="Zakres2_Min">
+                      </label>
+                      <label> - </label>
+                      <label class="" id="Zakres2_Max" name="Zakres2_Max">
+                      </label>
+                      <small class="text-body-secondary fw-light"> mBar </small>
+                    </h1>
+                    <div class="buttonGroup">
+                      <form method="post">
+                        <input name='"DB_WWW".Zakres2_Max' type="text" />
+                        <a class="button button--secondary" ype="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col">
+                <div
+                  class="card card--centered"
+                  style="background-color: rgba(var(--color-error-lighter))"
+                >
+                  <div class="card__header">
+                    <h4 class="card__title">Zakres awaryjny</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      <label class="" id="Zakres3_Min" name="Zakres3_Min">
+                      </label>
+                      <label> - </label>
+                      <label class="" id="Zakres3_Max" name="Zakres3_Max">
+                      </label>
+                      <small class="text-body-secondary fw-light"> mBar </small>
+                    </h1>
+                    <div class="buttonGroup">
+                      <form method="post">
+                        <input name='"DB_WWW".Zakres3_Max' type="text" />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="tabs-2" class="">
+            <h3>Cykl czyszczenia</h3>
+            <div class="cards__row">
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">
+                      Ilość cylki czyszczenia dla stanu normalnego
+                    </h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">10</h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".IloscCykliCzyszczenia:
+                      <form method="post">
+                        <input
+                          name='"DB_WWW".IloscCykliCzyszczenia'
+                          type="text"
+                        />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col">
+                <div
+                  class="card card--centered"
+                  style="background-color: rgba(var(--color-warning-lighter))"
+                >
+                  <div class="card__header">
+                    <h4 class="card__title">
+                      Ilość cylki czyszczenia dla stanu ostrzegawczego
+                    </h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">30</h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".IloscCykliCzyszczeniaOstrzegawcze:
+                      <form method="post">
+                        <input
+                          name='"DB_WWW".IloscCykliCzyszczeniaOstrzegawcze'
+                          type="text"
+                        />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col">
+                <div
+                  class="card card--centered"
+                  style="background-color: rgba(var(--color-error-lighter))"
+                >
+                  <div class="card__header">
+                    <h4 class="card__title">
+                      Ilość cylki czyszczenia dla stanu awaryjnego
+                    </h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">50</h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".IloscCykliCzyszczeniaAwaryjne:
+                      <form method="post">
+                        <input
+                          name='"DB_WWW".IloscCykliCzyszczeniaAwaryjne'
+                          type="text"
+                        />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+            </div>
+            <div class="cards__row">
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">Czas otwarcia zaworu</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      5000
+                      <small class="text-body-secondary fw-light"> mSec</small>
+                    </h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".CzasOtwarcia:
+                      <form method="post">
+                        <input name='"DB_WWW".CzasOtwarcia' type="text" />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">Czas zamknięcia zaworu</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      3000
+                      <small class="text-body-secondary fw-light"> mSec</small>
+                    </h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".CzasZamkniecia:
+                      <form method="post">
+                        <input name='"DB_WWW".CzasZamkniecia' type="text" />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="tabs-3" class="">
+            <h3>Czasy chłodzenia i hamowania układu</h3>
+            <div class="cards__row">
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">Czas chłodzenia</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      180
+                      <small class="text-body-secondary fw-light"> sek.</small>
+                    </h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".CzasChlodzenia:
+                      <form method="post">
+                        <input name='"DB_WWW".CzasChlodzenia' type="text" />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">Czas hamowania</h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      180
+                      <small class="text-body-secondary fw-light"> sek.</small>
+                    </h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".CzasHamowania:
+                      <form method="post">
+                        <input name='"DB_WWW".CzasHamowania' type="text" />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="inputGroup">
+              <div class="checkboxWrapper">
+                <input
+                  type="checkbox"
+                  class="inputGroup__checkbox"
+                  id="checkbox01"
+                  name="checkbox-A"
+                  value="checkbox01"
+                />
+                <label class="" for="checkbox01"
+                  >Czyszczenie układu podczas wybiegu wentylatora</label
+                >
+                <div id="log"></div>
+              </div>
+            </div>
+            <div style="display: none" class="cards__row" id="foo">
+              <div class="cards__col"></div>
+              <div class="cards__col">
+                <div class="card card--centered">
+                  <div class="card__header">
+                    <h4 class="card__title">
+                      Ilość cykli czyszczenia podczas hamowania
+                    </h4>
+                  </div>
+                  <div class="card__content">
+                    <h1 class="">
+                      3
+                      <small class="text-body-secondary fw-light"> </small>
+                    </h1>
+                    <div class="buttonGroup">
+                      :="DB_WWW".IloscCykliPodczasHamowania:
+                      <form method="post">
+                        <input
+                          name='"DB_WWW".IloscCykliPodczasHamowania'
+                          type="text"
+                        />
+                        <a class="button button--secondary" type="submit"
+                          >Zapisz</a
+                        >
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card__footer"></div>
+                </div>
+              </div>
+              <div class="cards__col"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ***************** -->
+    <!-- ***************** -->
+
+    <!-- ***************** -->
+    <!-- ***************** -->
+    <!-- ***************** -->
+  </body>
+
+  <script type="text/javascript">
+    var g = new JustGage({
+      id: "gauge",
+      value: 0,
+      min: 0,
+      max: 200,
+      title: "Aktuala różnica ciśnienia na filtrze",
+    });
+
+    $(document).ready(function () {
+      //query the trianglewave variable every second
+      $.ajaxSetup({ cache: false });
+      setInterval(function () {
+        $.get("getData.htm", function (result) {
+          var obj = JSON.parse(result);
+          g.refresh(obj.AktualneCisnienie);
+          $("#Zakres1_Min").text(obj.Zakres1_Min);
+          $("#Zakres1_Max").text(obj.Zakres1_Max);
+          $("#Zakres2_Min").text(obj.Zakres2_Min);
+          $("#Zakres2_Max").text(obj.Zakres2_Max);
+          $("#Zakres3_Min").text(obj.Zakres3_Min);
+          $("#Zakres3_Max").text(obj.Zakres3_Max);
+        });
+      }, 1000);
+      $("button").click(function () {
+        url = "getData.htm";
+        name = '"DB_WWW".Zakres1_Max';
+        val = $("input[id=Zakres1_Max_setVal]").val();
+        sdata = escape(name) + "=" + val;
+        $.post(url, sdata, function (result) {});
+      });
+    });
+
+    $(function () {
+      $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+      $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+    });
+
+    $("#checkbox01").on("click", function () {
+      $('[id="checkbox01"]').change(function () {
+        if ($(this).is(":checked")) {
+          $("#foo").fadeIn();
+          $("#log").html($("input:checked").val() + " jest zaznaczone!");
+        } else {
+          $("#foo").fadeOut();
+          $("#log").html($("input:checked").val() + " jest odzaznaczone!");
+        }
+      });
+    });
+  </script>
+</html>
+
+<!--
+To verify if it is checked
+$('#checkboxId').is(':checked')
+
+To check
+$("#checkboxId").prop('checked', true)
+
+To uncheck
+$("#checkboxId").prop('checked', false)
+
+-->
